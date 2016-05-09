@@ -1,0 +1,43 @@
+{
+  "name": "gulp-sass-partials-imported",
+  "version": "1.0.0",
+  "description": "My <%= superb %> gulp plugin",
+  "license": "MIT",
+  "repository": "g100g/gulp-sass-partials-imported",
+  "author": {
+    "name": "G100g",
+    "email": "giorgio@g100g.net",
+    "url": "http://g100g.net"
+  },
+  "contributors": [
+    "Davide Cantelli <hello@davidecantelli.it> (http://davidecantelli.it/)"
+  ],
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "gulpplugin",
+    "sass",
+    "import",
+    "imported",
+    "cache"
+  ],
+  "dependencies": {
+    "gulp-util": "^3.0.7",
+    "through2": "^2.0.1",
+    "glob": "^7.0.3",
+    "lodash": "^4.11.1",
+    "vinyl-file": "^2.0.0",
+    "sass-graph": "^2.1.1"
+  },
+  "devDependencies": {
+    "ava": "^0.14.0",
+    "xo": "^0.14.0"
+  }
+}
