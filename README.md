@@ -28,4 +28,4 @@ gulp.task('sass', () => {
 
 ## License
 
-MIT © [<%= name %>](<%= website %>)
+MIT © G100g(http://g100g.net)
