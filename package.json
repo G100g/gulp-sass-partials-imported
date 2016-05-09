@@ -1,7 +1,7 @@
 {
   "name": "gulp-sass-partials-imported",
-  "version": "1.0.0",
-  "description": "My <%= superb %> gulp plugin",
+  "version": "1.0.2",
+  "description": "Filter partial scss files, adding theirs ancestors",
   "license": "MIT",
   "repository": "g100g/gulp-sass-partials-imported",
   "author": {
