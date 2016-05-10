@@ -3,9 +3,12 @@
 const
     sassGraph = require('sass-graph'),
     through = require('through2'),
-    vinylFile = require('vinyl-file');
+    vinylFile = require('vinyl-file'),
+    isWin = /^win/.test(process.platform);
 
 function sass_partials_imported(scss_dir) {
+
+  scss_dir = scss_dir || './';
 
     let graph = sassGraph.parseDir(scss_dir, { loadPaths: [scss_dir] }),
         processedFiles = [];
@@ -15,7 +18,6 @@ function sass_partials_imported(scss_dir) {
         let file_path = file.path,
             files_to_sass = checkFiles(file_path, scss_dir, graph),
             files = createVinylFileArray(files_to_sass, scss_dir);
-
         if (files_to_sass.length > 0) {
 
             files.forEach( f => {
@@ -37,27 +39,45 @@ function sass_partials_imported(scss_dir) {
 
 function checkFiles(file, project_path, graph) {
 
-    let isWin = /^win/.test(process.platform),
-        files_to_sass = [],
-        file_path = isWin ? file.replace(/\//g, '\\') : file_path;
+  let	files_to_sass = [],
+  	file_path = isWin ? file.replace(/\//g, '\\') : file;
 
-    files_to_sass = getSassFileToUpdate(file_path);
-
-    return files_to_sass;
+  files_to_sass = getSassFileToUpdate(file_path, graph);
+  files_to_sass.sort();
+  return files_to_sass;
 
 }
 
-function getSassFileToUpdate(file_path) {
+function getSassFileToUpdate(file_path, graph, files) {
 
-    try {
+  files = files || [];
 
-        return graph.index[file_path].importedBy;
+  try {
 
-    } catch(e) {
+    if (graph.index[file_path].importedBy.length === 0) {
+      // console.log("ADDD", file_path);
+      if (files.indexOf(file_path) === -1) {
+        files.push(file_path);
+      }
+      // console.log(files);
+      return files;
 
-        return [];
+    } else {
+
+      // console.log("Parse", graph.index[file_path].importedBy);
+
+      graph.index[file_path].importedBy.forEach(function (file_path) {
+        getSassFileToUpdate(file_path, graph, files);
+      });
+
+      return files;
 
     }
+
+  } catch(e) {
+    console.log(e);
+    return [];
+  }
 
 }
 

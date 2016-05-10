@@ -16,7 +16,7 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": ""
+    "test": "tape specs/tests.js | tap-spec"
   },
   "files": [
     "index.js"
@@ -38,6 +38,9 @@
   },
   "devDependencies": {
     "ava": "^0.14.0",
+    "gulp": "^3.9.1",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.5.1",
     "xo": "^0.14.0"
   }
 }

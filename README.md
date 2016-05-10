@@ -2,9 +2,9 @@
 
 # gulp-sass-partials-imported
 
-> Add SCSS files that import the file you are saving to the Gulp pipe.
+>It process scss partials files and add the files that import them to the pipe.
 
-Use it with gulp-cached and gulp-sass to create a gulp watcher that avoid the re-compile of all the scss files in the project everytime you save one of them, saving a lot of time.
+Use it with gulp-cached and gulp-sass to create a watch task that avoid the re-compile of all the scss files in the project everytime you save one of them, saving a lot of time.
 
 ## Install
 ======
@@ -16,7 +16,7 @@ $ npm install --save-dev gulp-sass-partials-imported
 ## Usage
 ======
 
-In the example below we have a `watch` that everytime we save a file, compiles only that file and, if it's a partial .scss, also .scss that imported its.
+In the example below we have a `watch` task that, everytime we save a partial file, adds to the pipe files that import the partial file.
 
 ```js
 const gulp = require('gulp'),
@@ -42,7 +42,6 @@ gulp.task('watch', function () {
 });
 
 ```
-
 
 ## License
 
