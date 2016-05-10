@@ -1,4 +1,4 @@
-# gulp-sass-partials-imported [![Build Status](https://travis-ci.org/g100g/gulp-sass-partials-imported.svg?branch=master)](https://travis-ci.org/g100g/gulp-sass-partials-imported)
+# gulp-sass-partials-imported [![Build Status](https://travis-ci.org/G100g/gulp-sass-partials-imported.svg?branch=master)](https://travis-ci.org/G100g/gulp-sass-partials-imported)
 
 >It process scss partials files and add the files that import them to the pipe.
 
