@@ -1,103 +1,82 @@
 'use strict';
 
-var  _ = require('lodash'),
+const
     sassGraph = require('sass-graph'),
-    through = require('through2');
-    // gutil = require('gulp-util');
+    through = require('through2'),
+    vinylFile = require('vinyl-file');
 
-const vinylFile = require('vinyl-file');
+function sass_partials_imported(scss_dir) {
 
-function sass_cache(includePaths) {
+    let graph = sassGraph.parseDir(scss_dir, { loadPaths: [scss_dir] }),
+        processedFiles = [];
 
-  let graph = sassGraph.parseDir(includePaths, {
-                                  loadPaths: [includePaths]
-                                });
+    return through.obj(function (file, enc, cb) {
 
-  let processedFiles = [];
+        let file_path = file.path,
+            files_to_sass = checkFiles(file_path, scss_dir, graph),
+            files = createVinylFileArray(files_to_sass, scss_dir);
 
-  return through.obj(function (file, enc, cb) {
+        if (files_to_sass.length > 0) {
 
-    let file_path = file.path;
+            files.forEach( f => {
 
-    let files_to_sass = checkFiles(file_path, includePaths, graph);
+                if (processedFiles.indexOf(f.path) === -1) {
+                    this.push(f);
+                    processedFiles.push(f.path);
+                }
 
-    let files = createVinylFileArray(files_to_sass, includePaths)
+            });
 
-    if (files_to_sass.length > 0) {
-
-      _.each(files, f => {
-
-        if (processedFiles.indexOf(f.path) === -1) {
-          this.push(f);
-          processedFiles.push(f.path);
         }
 
-      });
+        cb();
 
-    }
-
-    cb();
-
-  });
+    });
 
 }
 
 function checkFiles(file, project_path, graph) {
 
-  var files_to_sass = [];
+    let isWin = /^win/.test(process.platform),
+        files_to_sass = [],
+        file_path = isWin ? file.replace(/\//g, '\\') : file_path;
 
-  let file_path = file.replace(/\//g, '\\');
+    files_to_sass = getSassFileToUpdate(file_path);
 
-  files_to_sass = getSassFileToUpdate(file_path, project_path, graph);
-
-  return files_to_sass;
+    return files_to_sass;
 
 }
 
-function getSassFileToUpdate(file_path, project_path, graph) {
+function getSassFileToUpdate(file_path) {
 
-  // let files_to_update = [];
+    try {
 
-  // Find whick file imports the partial file
+        return graph.index[file_path].importedBy;
 
-  // _.each(graph.index, function (value, key) {
-  //
-  //   let pos = value.imports.indexOf(file_path);
-  //   // console.log(file_path, value.imports);
-  //   if( pos !== -1) {
-  //     files_to_update.push(key);
-  //   }
-  //
-  // });
-  //
-  // return files_to_update;
+    } catch(e) {
 
-  try {
+        return [];
 
-    return graph.index[file_path].importedBy;
-
-  } catch(e) {
-    return [];
-  }
+    }
 
 }
 
 function createVinylFileArray(files, base) {
 
-  let  filesArray = [];
+    let filesArray = [];
 
-  _.each(files, function (value) {
+    files.forEach( value => {
 
-    let f = vinylFile.readSync(value, {
-      base: base
+        let f = vinylFile.readSync(value, {
+            base: base
+        });
+
+        filesArray.push(f);
+
     });
 
-    filesArray.push(f);
-
-  });
-
-  return filesArray;
+    return filesArray;
 
 }
 
-module.exports = sass_cache;
+module.exports = sass_partials_imported;
