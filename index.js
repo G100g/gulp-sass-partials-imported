@@ -52,7 +52,6 @@ function checkFiles(file, project_path, graph) {
 
   files_to_sass = getSassFileToUpdate(file_path, graph);
   files_to_sass.sort();
-  // console.log(files_to_sass);
   return files_to_sass;
 
 }
