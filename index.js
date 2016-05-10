@@ -18,15 +18,12 @@ function sass_cache(includePaths) {
 
   let processedFiles = [];
 
-  console.dir(graph.index);
-
   return through.obj(function (file, enc, cb) {
 
     let file_path = file.path;
 
-
     let files_to_sass = checkFiles(file_path, includePaths, graph);
-console.log(files_to_sass);
+
     let files = createVinylFileArray(files_to_sass, includePaths)
     if (files_to_sass.length > 0) {
 
@@ -54,7 +51,8 @@ function checkFiles(file, project_path, graph) {
   let file_path = isWin ? file.replace(/\//g, '\\') : file;
 
   files_to_sass = getSassFileToUpdate(file_path, graph);
-
+  files_to_sass.sort();
+  // console.log(files_to_sass);
   return files_to_sass;
 
 }
@@ -79,19 +77,21 @@ function getSassFileToUpdate(file_path, graph, files) {
   //
   // return files_to_update;
 
-console.log("CHECK", file_path);
+// console.log("CHECK", file_path);
 
   try {
 
     if (graph.index[file_path].importedBy.length === 0) {
-      console.log("ADDD", file_path);
-      files.push(file_path);
-      console.log(files);
+      // console.log("ADDD", file_path);
+      if (files.indexOf(file_path) === -1) {
+        files.push(file_path);
+      }
+      // console.log(files);
       return files;
 
     } else {
 
-      console.log("Parse", graph.index[file_path].importedBy);
+      // console.log("Parse", graph.index[file_path].importedBy);
 
       graph.index[file_path].importedBy.forEach(function (file_path) {
         getSassFileToUpdate(file_path, graph, files);

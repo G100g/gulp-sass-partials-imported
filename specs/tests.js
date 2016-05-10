@@ -49,7 +49,7 @@ test('partial_a is imported by a and c', function (t) {
 
 });
 
-test('partial_c is imported by b and c', function (t) {
+test('partial_c is imported by a, b and c', function (t) {
 
   let sass_dir = path.join(__dirname, 'scss/');
   let piped_files = [];
@@ -57,9 +57,6 @@ test('partial_c is imported by b and c', function (t) {
   function* run() {
 
     var file_path;
-
-    file_path = yield;
-    t.notEqual(file_path.indexOf('_partial_b.scss'), -1, "_partial_b.scss added");
 
     file_path = yield;
     t.notEqual(file_path.indexOf('a.scss'), -1, "a.scss added");
@@ -78,7 +75,7 @@ test('partial_c is imported by b and c', function (t) {
 
   gulp.src(path.join(sass_dir, '_partial_c.scss'))
       .pipe(partials(sass_dir))
-      .pipe(logpipe())
+      // .pipe(logpipe())
       .pipe(through.obj(function (file, enc, cb) {
 
         gen.next(file.path);
