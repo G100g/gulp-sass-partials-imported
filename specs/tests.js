@@ -91,29 +91,3 @@ test('partial_a is imported by a and c', function (t) {
       });
 
 });
-
-test('e is imported by d', function (t) {
-
-  let sass_dir = path.join(__dirname, 'scss/');
-  let piped_files = [];
-
-  let files = [];
-
-  gulp.src(path.join(sass_dir, 'e.scss'))
-      .pipe(partials(sass_dir))
-      .on('data', function (data) {
-        files.push(data.path)
-      })
-      .on('end', function () {
-
-        t.equal(files.length, 2, "Only two files");
-        t.notEqual(files.indexOf(path.join(sass_dir, 'd.scss')), -1, "d file present");
-        t.notEqual(files.indexOf(path.join(sass_dir, 'e.scss')), -1, "e file present");
-        // t.equal(files.indexOf(path.join(sass_dir, 'b.scss')), -1, "b file not present");
-        // t.notEqual(files.indexOf(path.join(sass_dir, 'c.scss')), -1, "c file present");
-
-        t.end();
-
-      });
-
-});

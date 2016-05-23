@@ -6,8 +6,6 @@ const
     vinylFile = require('vinyl-file'),
     isWin = /^win/.test(process.platform);
 
-const path = require('path');
-
 function sass_partials_imported(scss_dir) {
 
   scss_dir = scss_dir || './';
@@ -56,13 +54,16 @@ function getSassFileToUpdate(file_path, graph, files) {
 
   try {
 
-    if (!isPartial(file_path)) {
-        if (files.indexOf(file_path) === -1) {
-            files.push(file_path);
-        }
-    }
+    if (graph.index[file_path].importedBy.length === 0) {
+      // console.log("ADDD", file_path);
+      if (files.indexOf(file_path) === -1) {
+        files.push(file_path);
+      }
+      // console.log(files);
+      return files;
 
-    if (graph.index[file_path].importedBy.length > 0) {
+    } else {
+
       // console.log("Parse", graph.index[file_path].importedBy);
 
       graph.index[file_path].importedBy.forEach(function (file_path) {
@@ -73,17 +74,11 @@ function getSassFileToUpdate(file_path, graph, files) {
 
     }
 
-    return files;
-
   } catch(e) {
     console.log(e);
     return [];
   }
 
-}
-
-function isPartial(file_path) {
-    return path.basename(file_path).indexOf('_') === 0;
 }
 
 function createVinylFileArray(files, base) {
