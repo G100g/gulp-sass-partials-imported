@@ -1,0 +1,18 @@
+{
+    "extends": "defaults/configurations/walmart/es6-node",
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "modules": true
+    },
+    "allowImportExportEverywhere": true,
+    "env": {
+      "browser": false,
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "indent": ["error", 4],
+      "quotes": ["error", "single"]
+    }
+}

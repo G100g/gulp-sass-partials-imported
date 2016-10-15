@@ -39,8 +39,8 @@ function sass_partials_imported(scss_dir) {
 
 function checkFiles(file, project_path, graph) {
 
-  let	files_to_sass = [],
-  	file_path = isWin ? file.replace(/\//g, '\\') : file;
+  let files_to_sass = [],
+      file_path = isWin ? file.replace(/\//g, '\\') : file;
 
   files_to_sass = getSassFileToUpdate(file_path, graph);
   files_to_sass.sort();
@@ -75,7 +75,6 @@ function getSassFileToUpdate(file_path, graph, files) {
     }
 
   } catch(e) {
-    console.log(e);
     return [];
   }
 
