@@ -33,7 +33,7 @@
     "gulp-util": "^3.0.7",
     "through2": "^2.0.1",
     "glob": "^7.0.3",
-    "lodash": "^4.11.1",
+    "lodash": "^4.16.5",
     "vinyl-file": "^2.0.0",
     "sass-graph": "^2.1.1"
   },
