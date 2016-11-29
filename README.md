@@ -41,4 +41,6 @@ gulp.task('watch', function () {
 
 ## License
 
-MIT © G100g(http://g100g.net)
+MIT ©
+G100g(http://g100g.net)
+Davide Cantelli (http://ww.davidecantelli.it)
