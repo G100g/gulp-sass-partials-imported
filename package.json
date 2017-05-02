@@ -30,15 +30,15 @@
     "cache"
   ],
   "dependencies": {
-    "gulp-util": "^3.0.7",
-    "through2": "^2.0.1",
     "glob": "^7.0.3",
+    "gulp-util": "^3.0.7",
     "lodash": "^4.11.1",
-    "vinyl-file": "^2.0.0",
-    "sass-graph": "^2.1.1"
+    "sass-graph": "^2.2.2",
+    "through2": "^2.0.1",
+    "vinyl-file": "^3.0.0"
   },
   "devDependencies": {
-    "eslint-plugin-filenames": "^0.2.0",
+    "eslint-plugin-filenames": "^1.2.0",
     "gulp": "^3.9.1",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1"
