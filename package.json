@@ -1,6 +1,6 @@
 {
   "name": "gulp-sass-partials-imported",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "It process scss partials files and add the files that import them to the pipe.",
   "license": "MIT",
   "repository": "g100g/gulp-sass-partials-imported",
