@@ -8,11 +8,16 @@ const
 
 const path = require('path');
 
-function sass_partials_imported(scss_dir) {
+function sass_partials_imported(scss_dir, loadPaths) {
 
-  scss_dir = scss_dir || './';
+    scss_dir = scss_dir || './';
+    loadPaths = loadPaths
+        ? Array.isArray(loadPaths) 
+            ? loadPaths 
+            : [loadPaths]
+        : [scss_dir];
 
-    let graph = sassGraph.parseDir(scss_dir, { loadPaths: [scss_dir] }),
+    let graph = sassGraph.parseDir(scss_dir, { loadPaths: loadPaths }),
         processedFiles = [];
 
     return through.obj(function (file, enc, cb) {

@@ -12,7 +12,25 @@ $ npm install --save-dev gulp-sass-partials-imported
 
 ## Usage
 
-In the example below we have a `watch` task that, everytime we save a partial file, adds to the pipe files that import the partial file.
+Just add sassPartialsImported to the pipe
+```js
+.pipe( sassPartialsImported(scss_dir, includePaths) )
+```
+
+### Arguments
+
+**scss_dir** (string) [required]
+
+_Folder where all the scss files are_
+
+**includePaths** (string|Array) [optional]
+
+_Path string, or Array of paths, where look in to attempt to resolve your @import declarations._ (same as [includePaths of node-sass](https://github.com/sass/node-sass#user-content-includepaths))
+
+
+## Example
+
+In the example below we have a `watch` task that, everytime we save a partial file, adds to the pipe all the scss files that @import the partial file.
 
 ```js
 const gulp = require('gulp'),
@@ -21,11 +39,12 @@ const cached = require('gulp-cached');
 const sassPartialsImported = require('gulp-sass-partials-imported');
 
 let scss_dir = 'src/scss/';
+let includePaths = ['src/scss/vendors'];
 
 gulp.task('sass', () => {
 	gulp.src('src/*.scss')
 		.pipe(cached('sassfiles'))
-		.pipe(sassPartialsImported(scss_dir))
+		.pipe(sassPartialsImported(scss_dir, includePaths))
 		.pipe(sass({ includePaths: scss_dir }).on('error', sass.logError))
 		.pipe(gulp.dest('dist'));
 });
@@ -42,5 +61,4 @@ gulp.task('watch', function () {
 ## License
 
 MIT ©
-G100g(http://g100g.net)
-Davide Cantelli (http://ww.davidecantelli.it)
+G100g(http://g100g.net) - Davide Cantelli (http://ww.davidecantelli.it)
