@@ -1,0 +1,14 @@
+{
+  "name": "Basic Example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "gulp-cached": "^1.1.1",
+    "gulp-sass": "^4.0.2"
+  },
+  "private": true
+}
